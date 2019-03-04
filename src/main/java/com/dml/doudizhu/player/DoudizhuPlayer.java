@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.text.Position;
-
 import com.dml.doudizhu.pai.waihao.WaihaoGenerator;
 import com.dml.doudizhu.player.action.da.DaPaiException;
 import com.dml.doudizhu.player.action.da.DaPaiSolutionsTipsFilter;
@@ -16,6 +14,7 @@ import com.dml.doudizhu.preparedapai.lipai.ShoupaiSortStrategy;
 import com.dml.puke.pai.DianShu;
 import com.dml.puke.pai.PukePai;
 import com.dml.puke.wanfa.dianshu.paizu.DianShuZuPaiZu;
+import com.dml.puke.wanfa.position.Position;
 
 public class DoudizhuPlayer {
 
