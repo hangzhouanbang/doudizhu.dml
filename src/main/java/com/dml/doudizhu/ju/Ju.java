@@ -11,12 +11,14 @@ import com.dml.doudizhu.pan.Pan;
 import com.dml.doudizhu.pan.PanResult;
 import com.dml.doudizhu.player.action.ActionStatisticsListenerManager;
 import com.dml.doudizhu.player.action.da.AllKedaPaiSolutionsGenerator;
+import com.dml.doudizhu.player.action.da.DaPaiSolutionsTipsFilter;
 import com.dml.doudizhu.player.action.da.DianShuZuYaPaiSolutionCalculator;
 import com.dml.doudizhu.player.action.da.YaPaiSolutionsTipsFilter;
 import com.dml.doudizhu.player.action.da.ZaDanYaPaiSolutionCalculator;
 import com.dml.doudizhu.preparedapai.avaliablepai.AvaliablePaiFiller;
 import com.dml.doudizhu.preparedapai.dizhu.DizhuDeterminer;
 import com.dml.doudizhu.preparedapai.fapai.FaPaiStrategy;
+import com.dml.doudizhu.preparedapai.lipai.ShoupaiSortStrategy;
 import com.dml.doudizhu.preparedapai.luanpai.LuanPaiStrategy;
 import com.dml.doudizhu.preparedapai.position.MenfengDeterminer;
 import com.dml.doudizhu.preparedapai.xianda.XiandaDeterminer;
@@ -41,7 +43,9 @@ public class Ju {
 	private MenfengDeterminer menfengDeterminer;
 	private XiandaDeterminer xiandaDeterminerForFirstPan;
 	private XiandaDeterminer xiandaDeterminerForNextPan;
+	private ShoupaiSortStrategy shoupaiSortStrategy;
 	private YaPaiSolutionsTipsFilter yaPaiSolutionsTipsFilter;
+	private DaPaiSolutionsTipsFilter daPaiSolutionsTipsFilter;
 	private AllKedaPaiSolutionsGenerator allKedaPaiSolutionsGenerator;
 
 	private WaihaoGenerator waihaoGenerator;
@@ -251,6 +255,22 @@ public class Ju {
 
 	public void setZaDanYaPaiSolutionCalculator(ZaDanYaPaiSolutionCalculator zaDanYaPaiSolutionCalculator) {
 		this.zaDanYaPaiSolutionCalculator = zaDanYaPaiSolutionCalculator;
+	}
+
+	public DaPaiSolutionsTipsFilter getDaPaiSolutionsTipsFilter() {
+		return daPaiSolutionsTipsFilter;
+	}
+
+	public void setDaPaiSolutionsTipsFilter(DaPaiSolutionsTipsFilter daPaiSolutionsTipsFilter) {
+		this.daPaiSolutionsTipsFilter = daPaiSolutionsTipsFilter;
+	}
+
+	public ShoupaiSortStrategy getShoupaiSortStrategy() {
+		return shoupaiSortStrategy;
+	}
+
+	public void setShoupaiSortStrategy(ShoupaiSortStrategy shoupaiSortStrategy) {
+		this.shoupaiSortStrategy = shoupaiSortStrategy;
 	}
 
 }

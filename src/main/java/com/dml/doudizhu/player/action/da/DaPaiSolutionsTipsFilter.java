@@ -7,12 +7,12 @@ import com.dml.doudizhu.player.action.da.solution.DaPaiDianShuSolution;
 import com.dml.puke.pai.PukePai;
 
 /**
- * 可压牌的提示过滤器
+ * 可打牌的提示过滤器
  * 
- * @author Neo
+ * @author lsc
  *
  */
-public interface YaPaiSolutionsTipsFilter {
+public interface DaPaiSolutionsTipsFilter {
 	public List<DaPaiDianShuSolution> filter(List<DaPaiDianShuSolution> YaPaiSolutions,
 			Map<Integer, PukePai> allShoupai);
 }
