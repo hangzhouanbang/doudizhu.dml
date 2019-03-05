@@ -9,9 +9,13 @@ import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
  * @author lsc
  *
  */
-public class FeijiDianShuZu implements DianShuZu {
+public abstract class FeijiDianShuZu implements DianShuZu {
 
 	private DianShu[] lianxuDianshuArray;
+
+	public int length() {
+		return lianxuDianshuArray.length;
+	}
 
 	public DianShu[] getLianxuDianshuArray() {
 		return lianxuDianshuArray;

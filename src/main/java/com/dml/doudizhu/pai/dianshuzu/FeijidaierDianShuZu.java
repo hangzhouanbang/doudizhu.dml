@@ -9,19 +9,9 @@ import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
  * @author lsc
  *
  */
-public class FeijidaierDianShuZu implements DianShuZu {
-
-	private DianShu[] lianxuDianshuArray;
+public class FeijidaierDianShuZu extends FeijiDianShuZu implements DianShuZu {
 
 	private DianShu[] chibangArray;
-
-	public DianShu[] getLianxuDianshuArray() {
-		return lianxuDianshuArray;
-	}
-
-	public void setLianxuDianshuArray(DianShu[] lianxuDianshuArray) {
-		this.lianxuDianshuArray = lianxuDianshuArray;
-	}
 
 	public DianShu[] getChibangArray() {
 		return chibangArray;

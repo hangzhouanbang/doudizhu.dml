@@ -12,5 +12,7 @@ import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
  *
  */
 public interface DianShuZuYaPaiSolutionCalculator {
+
 	public Map<String, DaPaiDianShuSolution> calculate(DianShuZu beiYaDianShuZu, int[] dianShuAmountArray);
+
 }

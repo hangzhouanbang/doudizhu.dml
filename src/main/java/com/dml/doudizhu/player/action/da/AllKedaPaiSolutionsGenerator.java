@@ -12,5 +12,7 @@ import com.dml.puke.pai.PukePai;
  *
  */
 public interface AllKedaPaiSolutionsGenerator {
+
 	public Map<String, DaPaiDianShuSolution> generateAllKedaPaiSolutions(Map<Integer, PukePai> allShoupai);
+
 }
