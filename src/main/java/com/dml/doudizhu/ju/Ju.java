@@ -8,13 +8,19 @@ import com.dml.doudizhu.gameprocess.JuFinishiDeterminer;
 import com.dml.doudizhu.pai.waihao.WaihaoGenerator;
 import com.dml.doudizhu.pan.CurrentPanResultBuilder;
 import com.dml.doudizhu.pan.Pan;
+import com.dml.doudizhu.pan.PanActionFrame;
 import com.dml.doudizhu.pan.PanResult;
+import com.dml.doudizhu.player.DoudizhuPlayer;
 import com.dml.doudizhu.player.action.ActionStatisticsListenerManager;
 import com.dml.doudizhu.player.action.da.AllKedaPaiSolutionsGenerator;
+import com.dml.doudizhu.player.action.da.DaAction;
+import com.dml.doudizhu.player.action.da.DaActionStatisticsListener;
 import com.dml.doudizhu.player.action.da.DaPaiSolutionsTipsFilter;
 import com.dml.doudizhu.player.action.da.DianShuZuYaPaiSolutionCalculator;
 import com.dml.doudizhu.player.action.da.YaPaiSolutionsTipsFilter;
 import com.dml.doudizhu.player.action.da.ZaDanYaPaiSolutionCalculator;
+import com.dml.doudizhu.player.action.guo.GuoAction;
+import com.dml.doudizhu.player.action.guo.GuoActionStatisticsListener;
 import com.dml.doudizhu.preparedapai.avaliablepai.AvaliablePaiFiller;
 import com.dml.doudizhu.preparedapai.dizhu.DizhuDeterminer;
 import com.dml.doudizhu.preparedapai.fapai.FaPaiStrategy;
@@ -56,6 +62,142 @@ public class Ju {
 
 	private DianShuZuYaPaiSolutionCalculator dianShuZuYaPaiSolutionCalculator;
 	private ZaDanYaPaiSolutionCalculator zaDanYaPaiSolutionCalculator;
+
+	public void addDaListener(DaActionStatisticsListener daActionStatisticsListener) {
+		actionStatisticsListenerManager.addDaListener(daActionStatisticsListener);
+	}
+
+	public void addGuoListener(GuoActionStatisticsListener guoActionStatisticsListener) {
+		actionStatisticsListenerManager.addGuoListener(guoActionStatisticsListener);
+	}
+
+	public void startFirstPan(List<String> allPlayerIds, long startTime) throws Exception {
+		currentPan = new Pan();
+		currentPan.setNo(1);
+		allPlayerIds.forEach((pid) -> currentPan.addPlayer(pid));
+
+		avaliablePaiFiller.fillAvaliablePai(this);
+
+		// 先乱牌，再发牌，再理牌
+		luanPaiStrategyForFirstPan.luanpai(this);
+		faPaiStrategyForFirstPan.fapai(this);
+		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
+				.forEach((player) -> player.lipai(shoupaiSortStrategy));
+
+		// 谁第一个打牌
+		String dapaiPlayerId = xiandaDeterminerForFirstPan.determineToXiandaplayer(this);
+		DoudizhuPlayer player = currentPan.findPlayer(dapaiPlayerId);
+		player.putYaPaiSolutionCandidates(
+				allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(player.getAllShoupai()));
+
+		// 提示
+		player.generateDaPaiSolutionsForTips(daPaiSolutionsTipsFilter);
+
+		currentPan.updateActionPositionByActionPlayer(dapaiPlayerId);
+
+		currentPan.recordPanActionFrame(null, startTime);
+	}
+
+	public void startNextPan(long currentTime) throws Exception {
+		actionStatisticsListenerManager.updateListenersForNextPan();
+		currentPan = new Pan();
+		currentPan.setNo(countFinishedPan() + 1);
+		PanResult latestFinishedPanResult = findLatestFinishedPanResult();
+		List<String> allPlayerIds = latestFinishedPanResult.allPlayerIds();
+		allPlayerIds.forEach((pid) -> currentPan.addPlayer(pid));
+
+		avaliablePaiFiller.fillAvaliablePai(this);
+
+		// 先乱牌，再发牌，再理牌
+		luanPaiStrategyForNextPan.luanpai(this);
+		faPaiStrategyForNextPan.fapai(this);
+		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
+				.forEach((player) -> player.lipai(shoupaiSortStrategy));
+
+		// 谁第一个打牌
+		String dapaiPlayerId = xiandaDeterminerForNextPan.determineToXiandaplayer(this);
+		DoudizhuPlayer player = currentPan.findPlayer(dapaiPlayerId);
+		player.putYaPaiSolutionCandidates(
+				allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(player.getAllShoupai()));
+
+		// 提示
+		player.generateDaPaiSolutionsForTips(daPaiSolutionsTipsFilter);
+
+		currentPan.updateActionPositionByActionPlayer(dapaiPlayerId);
+
+		currentPan.recordPanActionFrame(null, currentTime);
+
+	}
+
+	public PanActionFrame da(String playerId, List<Integer> paiIds, String dianshuZuheIdx, long actionTime)
+			throws Exception {
+		DaAction daAction = currentPan.da(playerId, paiIds, dianshuZuheIdx, waihaoGenerator);
+		// 每次要理牌
+		currentPan.findPlayer(playerId).lipai(shoupaiSortStrategy);
+		actionStatisticsListenerManager.updateDaActionListener(daAction, this);
+
+		if (panFinishiDeterminer.determineToFinishCurrentPan(this)) {// 是否盘结束
+			PanResult panResult = currentPanResultBuilder.buildCurrentPanResult(this, actionTime);
+			finishedPanResultList.add(panResult);
+			PanActionFrame panActionFrame = currentPan.recordPanActionFrame(daAction, actionTime);
+			currentPan = null;
+			if (juFinishiDeterminer.determineToFinishJu(this)) {// 是否局结束
+				juResult = juResultBuilder.buildJuResult(this);
+			}
+			return panActionFrame;
+		} else {
+			// 生成下家的候选方案。
+			currentPan.updateNextPlayersDaSolution(dianShuZuYaPaiSolutionCalculator, zaDanYaPaiSolutionCalculator);
+			// 可压提示过滤
+			currentPan.generateYaPaiSolutionsForTips(yaPaiSolutionsTipsFilter);
+
+			currentPan.updateActionPositionToNextPlayer();
+			return currentPan.recordPanActionFrame(daAction, actionTime);
+		}
+
+	}
+
+	public PanActionFrame guo(String playerId, long actionTime) throws Exception {
+		GuoAction guoAction = currentPan.guo(playerId);
+		actionStatisticsListenerManager.updateGuoActionListener(guoAction, this);
+		// 看下一人是否是最后出牌人
+		if (currentPan.ifStartYapai()) {// 下一人是最后出牌人
+			DoudizhuPlayer nextPlayer = currentPan.findNextActionPlayer();
+			nextPlayer.putYaPaiSolutionCandidates(
+					allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(nextPlayer.getAllShoupai()));
+
+			// 可压提示过滤
+			nextPlayer.generateDaPaiSolutionsForTips(daPaiSolutionsTipsFilter);
+
+			currentPan.updateActionPositionToNextPlayer();
+			currentPan.setLatestDapaiPlayerId(null);
+		} else {
+			// 生成下家的候选方案。
+			currentPan.updateNextPlayersDaSolution(dianShuZuYaPaiSolutionCalculator, zaDanYaPaiSolutionCalculator);
+			// 可压提示过滤
+			currentPan.generateYaPaiSolutionsForTips(yaPaiSolutionsTipsFilter);
+			// 划起提示
+			// currentPan.generateDaPaiSolutionsForTips(kedaPaiSolutionsForTipsGenerator);
+			currentPan.updateActionPositionToNextPlayer();
+		}
+		return currentPan.recordPanActionFrame(guoAction, actionTime);
+	}
+
+	public void finish() {
+		juResult = juResultBuilder.buildJuResult(this);
+	}
+
+	public int countFinishedPan() {
+		return finishedPanResultList.size();
+	}
+
+	public PanResult findLatestFinishedPanResult() {
+		if (!finishedPanResultList.isEmpty()) {
+			return finishedPanResultList.get(finishedPanResultList.size() - 1);
+		} else {
+			return null;
+		}
+	}
 
 	public Pan getCurrentPan() {
 		return currentPan;

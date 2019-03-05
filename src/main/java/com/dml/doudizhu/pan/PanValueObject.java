@@ -35,6 +35,32 @@ public class PanValueObject {
 		latestDapaiPlayerId = pan.getLatestDapaiPlayerId();
 	}
 
+	public List<String> allPlayerIds() {
+		List<String> list = new ArrayList<>();
+		for (DoudizhuPlayerValueObject player : shuangkouPlayerList) {
+			list.add(player.getId());
+		}
+		return list;
+	}
+
+	public Position playerPosition(String playerId) {
+		for (DoudizhuPlayerValueObject player : shuangkouPlayerList) {
+			if (player.getId().equals(playerId)) {
+				return player.getPosition();
+			}
+		}
+		return null;
+	}
+
+	public DoudizhuPlayerValueObject findPlayer(String playerId) {
+		for (DoudizhuPlayerValueObject player : shuangkouPlayerList) {
+			if (player.getId().equals(playerId)) {
+				return player;
+			}
+		}
+		return null;
+	}
+
 	public int getNo() {
 		return no;
 	}

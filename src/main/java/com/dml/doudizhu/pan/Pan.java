@@ -30,6 +30,7 @@ public class Pan {
 	private List<DianShuZuPaiZu> dachuPaiZuList = new ArrayList<>();
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
+	private String dizhuPlayerId;// 地主id
 	private List<PanActionFrame> actionFrameList = new ArrayList<>();
 
 	public PanActionFrame recordPanActionFrame(DoudizhuPlayerAction action, long actionTime) {
@@ -256,6 +257,14 @@ public class Pan {
 
 	public void setAvaliablePaiList(List<PukePai> avaliablePaiList) {
 		this.avaliablePaiList = avaliablePaiList;
+	}
+
+	public String getDizhuPlayerId() {
+		return dizhuPlayerId;
+	}
+
+	public void setDizhuPlayerId(String dizhuPlayerId) {
+		this.dizhuPlayerId = dizhuPlayerId;
 	}
 
 	public List<DianShuZuPaiZu> getDachuPaiZuList() {

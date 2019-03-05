@@ -9,5 +9,6 @@ import com.dml.doudizhu.ju.Ju;
  *
  */
 public interface MenfengDeterminer {
-	void determineMenfengForPlayer(Ju ju);
+
+	void determineMenfengForPlayer(Ju ju) throws Exception;
 }

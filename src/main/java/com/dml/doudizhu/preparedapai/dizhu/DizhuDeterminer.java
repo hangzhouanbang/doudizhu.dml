@@ -9,5 +9,6 @@ import com.dml.doudizhu.ju.Ju;
  *
  */
 public interface DizhuDeterminer {
-	String determineToDangdizhu(Ju ju);
+
+	String determineToDangdizhu(Ju ju) throws Exception;
 }

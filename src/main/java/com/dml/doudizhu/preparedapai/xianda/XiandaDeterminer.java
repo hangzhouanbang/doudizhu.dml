@@ -9,5 +9,6 @@ import com.dml.doudizhu.ju.Ju;
  *
  */
 public interface XiandaDeterminer {
-	String determineToXiandaplayer(Ju ju);
+
+	String determineToXiandaplayer(Ju ju) throws Exception;
 }

@@ -9,5 +9,6 @@ import com.dml.doudizhu.ju.Ju;
  *
  */
 public interface LuanPaiStrategy {
-	void luanpai(Ju ju);
+
+	void luanpai(Ju ju) throws Exception;
 }

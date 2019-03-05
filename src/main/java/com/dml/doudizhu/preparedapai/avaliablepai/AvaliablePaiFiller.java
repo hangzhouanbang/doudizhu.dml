@@ -9,5 +9,6 @@ import com.dml.doudizhu.ju.Ju;
  *
  */
 public interface AvaliablePaiFiller {
-	void fillAvaliablePai(Ju ju);
+
+	void fillAvaliablePai(Ju ju) throws Exception;
 }

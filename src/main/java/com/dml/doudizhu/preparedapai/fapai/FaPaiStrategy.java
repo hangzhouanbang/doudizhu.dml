@@ -9,5 +9,6 @@ import com.dml.doudizhu.ju.Ju;
  *
  */
 public interface FaPaiStrategy {
-	void fapai(Ju ju);
+
+	void fapai(Ju ju) throws Exception;
 }
