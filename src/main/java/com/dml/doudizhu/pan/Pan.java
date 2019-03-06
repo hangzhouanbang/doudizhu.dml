@@ -197,18 +197,13 @@ public class Pan {
 		return doudizhuPlayerIdMajiangPlayerMap.get(dapaiPlayerId);
 	}
 
-	public DoudizhuPlayer findDuijiaPlayer(String playerId) {
-		DoudizhuPlayer player = doudizhuPlayerIdMajiangPlayerMap.get(playerId);
-		if (player == null) {
-			return null;
+	public Position findPlayerPosition(String playerId) {
+		for (DoudizhuPlayer player : doudizhuPlayerIdMajiangPlayerMap.values()) {
+			if (player.getId().equals(playerId)) {
+				return player.getPosition();
+			}
 		}
-		Position nextPosition = PositionUtil.nextPositionClockwise(player.getPosition());
-		nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
-		String duijiaPlayerId = positionPlayerIdMap.get(nextPosition);
-		if (duijiaPlayerId == null) {
-			return null;
-		}
-		return doudizhuPlayerIdMajiangPlayerMap.get(duijiaPlayerId);
+		return null;
 	}
 
 	/**

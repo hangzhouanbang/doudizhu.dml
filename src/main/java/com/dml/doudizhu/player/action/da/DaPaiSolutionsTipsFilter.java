@@ -13,6 +13,7 @@ import com.dml.puke.pai.PukePai;
  *
  */
 public interface DaPaiSolutionsTipsFilter {
+
 	public List<DaPaiDianShuSolution> filter(List<DaPaiDianShuSolution> YaPaiSolutions,
 			Map<Integer, PukePai> allShoupai);
 }

@@ -18,7 +18,7 @@ public class OneAvaliablePaiFiller implements AvaliablePaiFiller {
 	@Override
 	public void fillAvaliablePai(Ju ju) throws Exception {
 		List<PukePai> allPaiList = new ArrayList<>();
-		// 生成两副牌
+		// 生成一副牌
 		int id = 0;
 		for (PukePaiMian paiType : PukePaiMian.values()) {
 			PukePai pai = new PukePai();

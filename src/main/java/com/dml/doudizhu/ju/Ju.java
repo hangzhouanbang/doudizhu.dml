@@ -42,17 +42,12 @@ public class Ju {
 	private LuanPaiStrategy luanPaiStrategyForNextPan;
 	private FaPaiStrategy faPaiStrategyForFirstPan;
 	private FaPaiStrategy faPaiStrategyForNextPan;
-	private DizhuDeterminer dizhuDeterminerForFirstPan;
-	private DizhuDeterminer dizhuDeterminerForNextPan;
+	private DizhuDeterminer dizhuDeterminer;
 	private MenfengDeterminer menfengDeterminerForFirstPan;
 	private MenfengDeterminer menfengDeterminerForNextPan;
-	private MenfengDeterminer menfengDeterminer;
 	private XiandaDeterminer xiandaDeterminerForFirstPan;
 	private XiandaDeterminer xiandaDeterminerForNextPan;
 	private ShoupaiSortStrategy shoupaiSortStrategy;
-	private YaPaiSolutionsTipsFilter yaPaiSolutionsTipsFilter;
-	private DaPaiSolutionsTipsFilter daPaiSolutionsTipsFilter;
-	private AllKedaPaiSolutionsGenerator allKedaPaiSolutionsGenerator;
 
 	private WaihaoGenerator waihaoGenerator;
 	private ActionStatisticsListenerManager actionStatisticsListenerManager = new ActionStatisticsListenerManager();
@@ -60,8 +55,12 @@ public class Ju {
 	private CurrentPanResultBuilder currentPanResultBuilder;
 	private JuResultBuilder juResultBuilder;
 
+	private AllKedaPaiSolutionsGenerator allKedaPaiSolutionsGenerator;
 	private DianShuZuYaPaiSolutionCalculator dianShuZuYaPaiSolutionCalculator;
 	private ZaDanYaPaiSolutionCalculator zaDanYaPaiSolutionCalculator;
+
+	private YaPaiSolutionsTipsFilter yaPaiSolutionsTipsFilter;
+	private DaPaiSolutionsTipsFilter daPaiSolutionsTipsFilter;
 
 	public void addDaListener(DaActionStatisticsListener daActionStatisticsListener) {
 		actionStatisticsListenerManager.addDaListener(daActionStatisticsListener);
@@ -279,20 +278,12 @@ public class Ju {
 		this.faPaiStrategyForNextPan = faPaiStrategyForNextPan;
 	}
 
-	public DizhuDeterminer getDizhuDeterminerForFirstPan() {
-		return dizhuDeterminerForFirstPan;
+	public DizhuDeterminer getDizhuDeterminer() {
+		return dizhuDeterminer;
 	}
 
-	public void setDizhuDeterminerForFirstPan(DizhuDeterminer dizhuDeterminerForFirstPan) {
-		this.dizhuDeterminerForFirstPan = dizhuDeterminerForFirstPan;
-	}
-
-	public DizhuDeterminer getDizhuDeterminerForNextPan() {
-		return dizhuDeterminerForNextPan;
-	}
-
-	public void setDizhuDeterminerForNextPan(DizhuDeterminer dizhuDeterminerForNextPan) {
-		this.dizhuDeterminerForNextPan = dizhuDeterminerForNextPan;
+	public void setDizhuDeterminer(DizhuDeterminer dizhuDeterminer) {
+		this.dizhuDeterminer = dizhuDeterminer;
 	}
 
 	public MenfengDeterminer getMenfengDeterminerForFirstPan() {
@@ -309,14 +300,6 @@ public class Ju {
 
 	public void setMenfengDeterminerForNextPan(MenfengDeterminer menfengDeterminerForNextPan) {
 		this.menfengDeterminerForNextPan = menfengDeterminerForNextPan;
-	}
-
-	public MenfengDeterminer getMenfengDeterminer() {
-		return menfengDeterminer;
-	}
-
-	public void setMenfengDeterminer(MenfengDeterminer menfengDeterminer) {
-		this.menfengDeterminer = menfengDeterminer;
 	}
 
 	public XiandaDeterminer getXiandaDeterminerForFirstPan() {
