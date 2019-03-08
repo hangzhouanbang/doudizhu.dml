@@ -45,14 +45,6 @@ public class DianshuOrPaishuShoupaiSortStrategy implements ShoupaiSortStrategy {
 		numberGroupMap.put(3, sanZhangList);
 		LinkedList<PukePai> siZhangList = new LinkedList<>();
 		numberGroupMap.put(4, siZhangList);
-		LinkedList<PukePai> wuZhangList = new LinkedList<>();
-		numberGroupMap.put(5, wuZhangList);
-		LinkedList<PukePai> liuZhangList = new LinkedList<>();
-		numberGroupMap.put(6, liuZhangList);
-		LinkedList<PukePai> qiZhangList = new LinkedList<>();
-		numberGroupMap.put(7, qiZhangList);
-		LinkedList<PukePai> baZhangList = new LinkedList<>();
-		numberGroupMap.put(8, baZhangList);
 		List<PukePai> temList = new ArrayList<>();
 		DianShu dianshu = null;
 		for (PukePai pukePai : dianshuSortList) {

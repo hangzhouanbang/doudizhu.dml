@@ -1,6 +1,7 @@
 package com.dml.doudizhu.pai.dianshuzu;
 
 import com.dml.puke.pai.DianShu;
+import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
 
 /**
  * 带翅膀的点数组
@@ -8,9 +9,18 @@ import com.dml.puke.pai.DianShu;
  * @author lsc
  *
  */
-public abstract class ChibangDianShuZu {
+public abstract class ChibangDianShuZu implements DianShuZu {
 	private DianShu dianshu;
 	private DianShu chibang;
+
+	public ChibangDianShuZu() {
+
+	}
+
+	public ChibangDianShuZu(DianShu dianshu, DianShu chibang) {
+		this.dianshu = dianshu;
+		this.chibang = chibang;
+	}
 
 	public DianShu getDianshu() {
 		return dianshu;

@@ -13,6 +13,14 @@ public abstract class FeijiDianShuZu implements DianShuZu {
 
 	private DianShu[] lianxuDianshuArray;
 
+	public FeijiDianShuZu() {
+
+	}
+
+	public FeijiDianShuZu(DianShu[] lianxuDianshuArray) {
+		this.lianxuDianshuArray = lianxuDianshuArray;
+	}
+
 	public int length() {
 		return lianxuDianshuArray.length;
 	}

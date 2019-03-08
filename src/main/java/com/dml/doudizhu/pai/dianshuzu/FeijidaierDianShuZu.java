@@ -1,7 +1,6 @@
 package com.dml.doudizhu.pai.dianshuzu;
 
 import com.dml.puke.pai.DianShu;
-import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
 
 /**
  * 带一个对子的飞机
@@ -9,9 +8,18 @@ import com.dml.puke.wanfa.dianshu.dianshuzu.DianShuZu;
  * @author lsc
  *
  */
-public class FeijidaierDianShuZu extends FeijiDianShuZu implements DianShuZu {
+public class FeijidaierDianShuZu extends FeijiDianShuZu {
 
 	private DianShu[] chibangArray;
+
+	public FeijidaierDianShuZu() {
+
+	}
+
+	public FeijidaierDianShuZu(DianShu[] lianxuDianshuArray, DianShu[] chibangArray) {
+		super(lianxuDianshuArray);
+		this.chibangArray = chibangArray;
+	}
 
 	public DianShu[] getChibangArray() {
 		return chibangArray;

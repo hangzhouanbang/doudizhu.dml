@@ -38,15 +38,12 @@ public class Ju {
 	private CurrentPanFinishiDeterminer panFinishiDeterminer;
 	private JuFinishiDeterminer juFinishiDeterminer;
 	private AvaliablePaiFiller avaliablePaiFiller;
-	private LuanPaiStrategy luanPaiStrategyForFirstPan;
-	private LuanPaiStrategy luanPaiStrategyForNextPan;
-	private FaPaiStrategy faPaiStrategyForFirstPan;
-	private FaPaiStrategy faPaiStrategyForNextPan;
+	private LuanPaiStrategy luanPaiStrategy;
+	private FaPaiStrategy faPaiStrategy;
 	private DizhuDeterminer dizhuDeterminer;
 	private MenfengDeterminer menfengDeterminerForFirstPan;
 	private MenfengDeterminer menfengDeterminerForNextPan;
-	private XiandaDeterminer xiandaDeterminerForFirstPan;
-	private XiandaDeterminer xiandaDeterminerForNextPan;
+	private XiandaDeterminer xiandaDeterminer;
 	private ShoupaiSortStrategy shoupaiSortStrategy;
 
 	private WaihaoGenerator waihaoGenerator;
@@ -78,13 +75,17 @@ public class Ju {
 		avaliablePaiFiller.fillAvaliablePai(this);
 
 		// 先乱牌，再发牌，再理牌
-		luanPaiStrategyForFirstPan.luanpai(this);
-		faPaiStrategyForFirstPan.fapai(this);
+		luanPaiStrategy.luanpai(this);
+		faPaiStrategy.fapai(this);
 		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
 				.forEach((player) -> player.lipai(shoupaiSortStrategy));
 
+		currentPan.recordPanActionFrame(null, startTime);
+	}
+
+	public void startPlaying(long currentTime) throws Exception {
 		// 谁第一个打牌
-		String dapaiPlayerId = xiandaDeterminerForFirstPan.determineToXiandaplayer(this);
+		String dapaiPlayerId = xiandaDeterminer.determineToXiandaplayer(this);
 		DoudizhuPlayer player = currentPan.findPlayer(dapaiPlayerId);
 		player.putYaPaiSolutionCandidates(
 				allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(player.getAllShoupai()));
@@ -94,7 +95,7 @@ public class Ju {
 
 		currentPan.updateActionPositionByActionPlayer(dapaiPlayerId);
 
-		currentPan.recordPanActionFrame(null, startTime);
+		currentPan.recordPanActionFrame(null, currentTime);
 	}
 
 	public void startNextPan(long currentTime) throws Exception {
@@ -108,13 +109,13 @@ public class Ju {
 		avaliablePaiFiller.fillAvaliablePai(this);
 
 		// 先乱牌，再发牌，再理牌
-		luanPaiStrategyForNextPan.luanpai(this);
-		faPaiStrategyForNextPan.fapai(this);
+		luanPaiStrategy.luanpai(this);
+		faPaiStrategy.fapai(this);
 		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
 				.forEach((player) -> player.lipai(shoupaiSortStrategy));
 
 		// 谁第一个打牌
-		String dapaiPlayerId = xiandaDeterminerForNextPan.determineToXiandaplayer(this);
+		String dapaiPlayerId = xiandaDeterminer.determineToXiandaplayer(this);
 		DoudizhuPlayer player = currentPan.findPlayer(dapaiPlayerId);
 		player.putYaPaiSolutionCandidates(
 				allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(player.getAllShoupai()));
@@ -246,36 +247,20 @@ public class Ju {
 		this.avaliablePaiFiller = avaliablePaiFiller;
 	}
 
-	public LuanPaiStrategy getLuanPaiStrategyForFirstPan() {
-		return luanPaiStrategyForFirstPan;
+	public LuanPaiStrategy getLuanPaiStrategy() {
+		return luanPaiStrategy;
 	}
 
-	public void setLuanPaiStrategyForFirstPan(LuanPaiStrategy luanPaiStrategyForFirstPan) {
-		this.luanPaiStrategyForFirstPan = luanPaiStrategyForFirstPan;
+	public void setLuanPaiStrategy(LuanPaiStrategy luanPaiStrategy) {
+		this.luanPaiStrategy = luanPaiStrategy;
 	}
 
-	public LuanPaiStrategy getLuanPaiStrategyForNextPan() {
-		return luanPaiStrategyForNextPan;
+	public FaPaiStrategy getFaPaiStrategy() {
+		return faPaiStrategy;
 	}
 
-	public void setLuanPaiStrategyForNextPan(LuanPaiStrategy luanPaiStrategyForNextPan) {
-		this.luanPaiStrategyForNextPan = luanPaiStrategyForNextPan;
-	}
-
-	public FaPaiStrategy getFaPaiStrategyForFirstPan() {
-		return faPaiStrategyForFirstPan;
-	}
-
-	public void setFaPaiStrategyForFirstPan(FaPaiStrategy faPaiStrategyForFirstPan) {
-		this.faPaiStrategyForFirstPan = faPaiStrategyForFirstPan;
-	}
-
-	public FaPaiStrategy getFaPaiStrategyForNextPan() {
-		return faPaiStrategyForNextPan;
-	}
-
-	public void setFaPaiStrategyForNextPan(FaPaiStrategy faPaiStrategyForNextPan) {
-		this.faPaiStrategyForNextPan = faPaiStrategyForNextPan;
+	public void setFaPaiStrategy(FaPaiStrategy faPaiStrategy) {
+		this.faPaiStrategy = faPaiStrategy;
 	}
 
 	public DizhuDeterminer getDizhuDeterminer() {
@@ -302,20 +287,12 @@ public class Ju {
 		this.menfengDeterminerForNextPan = menfengDeterminerForNextPan;
 	}
 
-	public XiandaDeterminer getXiandaDeterminerForFirstPan() {
-		return xiandaDeterminerForFirstPan;
+	public XiandaDeterminer getXiandaDeterminer() {
+		return xiandaDeterminer;
 	}
 
-	public void setXiandaDeterminerForFirstPan(XiandaDeterminer xiandaDeterminerForFirstPan) {
-		this.xiandaDeterminerForFirstPan = xiandaDeterminerForFirstPan;
-	}
-
-	public XiandaDeterminer getXiandaDeterminerForNextPan() {
-		return xiandaDeterminerForNextPan;
-	}
-
-	public void setXiandaDeterminerForNextPan(XiandaDeterminer xiandaDeterminerForNextPan) {
-		this.xiandaDeterminerForNextPan = xiandaDeterminerForNextPan;
+	public void setXiandaDeterminer(XiandaDeterminer xiandaDeterminer) {
+		this.xiandaDeterminer = xiandaDeterminer;
 	}
 
 	public YaPaiSolutionsTipsFilter getYaPaiSolutionsTipsFilter() {
