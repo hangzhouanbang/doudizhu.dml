@@ -14,11 +14,12 @@ public class DoudizhuPlayerValueObject {
 	private String id;
 	private Position position;
 	private Map<Integer, PukePai> allShoupai;
+	private int totalShoupai;
 	private int[] shoupaiDianShuAmountArray;
 	private List<List<Integer>> shoupaiIdListForSortList;
 	private List<DianShuZuPaiZu> lishiDachuPaiZuList;
 	private DianShuZuPaiZu publicDachuPaiZu;
-	private Map<String, DaPaiDianShuSolution> yaPaiSolutionCandidates;
+	private List<DaPaiDianShuSolution> yaPaiSolutionCandidates;
 	private List<DaPaiDianShuSolution> yaPaiSolutionsForTips;
 	private boolean guo;
 
@@ -31,12 +32,12 @@ public class DoudizhuPlayerValueObject {
 		position = doudizhuPlayer.getPosition();
 		allShoupai = new HashMap<>();
 		allShoupai.putAll(doudizhuPlayer.getAllShoupai());
+		totalShoupai = allShoupai.size();
 		shoupaiDianShuAmountArray = doudizhuPlayer.getShoupaiDianShuAmountArray().clone();
 		shoupaiIdListForSortList = new ArrayList<>(doudizhuPlayer.getShoupaiIdListForSortList());
 		lishiDachuPaiZuList = new ArrayList<>(doudizhuPlayer.getLishiDachuPaiZuList());
 		publicDachuPaiZu = doudizhuPlayer.getPublicDachuPaiZu();
-		yaPaiSolutionCandidates = new HashMap<>();
-		yaPaiSolutionCandidates.putAll(doudizhuPlayer.getYaPaiSolutionCandidates());
+		yaPaiSolutionCandidates = new ArrayList<>(doudizhuPlayer.getYaPaiSolutionCandidates().values());
 		yaPaiSolutionsForTips = new ArrayList<>(doudizhuPlayer.getYaPaiSolutionsForTips());
 		guo = doudizhuPlayer.isGuo();
 	}
@@ -63,6 +64,14 @@ public class DoudizhuPlayerValueObject {
 
 	public void setAllShoupai(Map<Integer, PukePai> allShoupai) {
 		this.allShoupai = allShoupai;
+	}
+
+	public int getTotalShoupai() {
+		return totalShoupai;
+	}
+
+	public void setTotalShoupai(int totalShoupai) {
+		this.totalShoupai = totalShoupai;
 	}
 
 	public int[] getShoupaiDianShuAmountArray() {
@@ -97,11 +106,11 @@ public class DoudizhuPlayerValueObject {
 		this.publicDachuPaiZu = publicDachuPaiZu;
 	}
 
-	public Map<String, DaPaiDianShuSolution> getYaPaiSolutionCandidates() {
+	public List<DaPaiDianShuSolution> getYaPaiSolutionCandidates() {
 		return yaPaiSolutionCandidates;
 	}
 
-	public void setYaPaiSolutionCandidates(Map<String, DaPaiDianShuSolution> yaPaiSolutionCandidates) {
+	public void setYaPaiSolutionCandidates(List<DaPaiDianShuSolution> yaPaiSolutionCandidates) {
 		this.yaPaiSolutionCandidates = yaPaiSolutionCandidates;
 	}
 

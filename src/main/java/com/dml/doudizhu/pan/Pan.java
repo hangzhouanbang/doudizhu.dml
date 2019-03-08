@@ -163,13 +163,8 @@ public class Pan {
 		}
 	}
 
-	public void updateActionPositionToNextPlayer() {
-		DoudizhuPlayer yapaiPlayer = null;
-		try {
-			yapaiPlayer = findNextActionPlayer();
-		} catch (PlayerNotFoundException e) {
-
-		}
+	public void updateActionPositionToNextPlayer() throws PlayerNotFoundException {
+		DoudizhuPlayer yapaiPlayer = findNextActionPlayer();
 		if (yapaiPlayer != null) {
 			yapaiPlayer.putPublicDachuPaiZuToLishi();
 			yapaiPlayer.setGuo(false);

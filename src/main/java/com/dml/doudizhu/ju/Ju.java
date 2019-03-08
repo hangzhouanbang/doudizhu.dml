@@ -98,7 +98,7 @@ public class Ju {
 		currentPan.recordPanActionFrame(null, currentTime);
 	}
 
-	public void startNextPan(long currentTime) throws Exception {
+	public void startNextPan() throws Exception {
 		actionStatisticsListenerManager.updateListenersForNextPan();
 		currentPan = new Pan();
 		currentPan.setNo(countFinishedPan() + 1);
@@ -114,18 +114,7 @@ public class Ju {
 		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
 				.forEach((player) -> player.lipai(shoupaiSortStrategy));
 
-		// 谁第一个打牌
-		String dapaiPlayerId = xiandaDeterminer.determineToXiandaplayer(this);
-		DoudizhuPlayer player = currentPan.findPlayer(dapaiPlayerId);
-		player.putYaPaiSolutionCandidates(
-				allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(player.getAllShoupai()));
-
-		// 提示
-		player.generateDaPaiSolutionsForTips(daPaiSolutionsTipsFilter);
-
-		currentPan.updateActionPositionByActionPlayer(dapaiPlayerId);
-
-		currentPan.recordPanActionFrame(null, currentTime);
+		currentPan.recordPanActionFrame(null, System.currentTimeMillis());
 
 	}
 
@@ -176,8 +165,7 @@ public class Ju {
 			currentPan.updateNextPlayersDaSolution(dianShuZuYaPaiSolutionCalculator, zaDanYaPaiSolutionCalculator);
 			// 可压提示过滤
 			currentPan.generateYaPaiSolutionsForTips(yaPaiSolutionsTipsFilter);
-			// 划起提示
-			// currentPan.generateDaPaiSolutionsForTips(kedaPaiSolutionsForTipsGenerator);
+
 			currentPan.updateActionPositionToNextPlayer();
 		}
 		return currentPan.recordPanActionFrame(guoAction, actionTime);

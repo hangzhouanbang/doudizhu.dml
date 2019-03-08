@@ -12,7 +12,7 @@ import com.dml.puke.wanfa.position.Position;
 
 public class PanValueObject {
 	private int no;
-	private List<DoudizhuPlayerValueObject> shuangkouPlayerList;
+	private List<DoudizhuPlayerValueObject> doudizhuPlayerList;
 	private PaiListValueObject paiListValueObject;
 	private Map<Position, String> positionPlayerIdMap;
 	private List<DianShuZuPaiZu> dachuPaiZuList;
@@ -25,9 +25,9 @@ public class PanValueObject {
 
 	public PanValueObject(Pan pan) {
 		no = pan.getNo();
-		shuangkouPlayerList = new ArrayList<>();
+		doudizhuPlayerList = new ArrayList<>();
 		pan.getDoudizhuPlayerIdMajiangPlayerMap().values()
-				.forEach((doudizhuPlayer) -> shuangkouPlayerList.add(new DoudizhuPlayerValueObject(doudizhuPlayer)));
+				.forEach((doudizhuPlayer) -> doudizhuPlayerList.add(new DoudizhuPlayerValueObject(doudizhuPlayer)));
 		paiListValueObject = new PaiListValueObject(pan.getAvaliablePaiList());
 		positionPlayerIdMap = new HashMap<>(pan.getPositionPlayerIdMap());
 		dachuPaiZuList = new ArrayList<>(pan.getDachuPaiZuList());
@@ -37,14 +37,14 @@ public class PanValueObject {
 
 	public List<String> allPlayerIds() {
 		List<String> list = new ArrayList<>();
-		for (DoudizhuPlayerValueObject player : shuangkouPlayerList) {
+		for (DoudizhuPlayerValueObject player : doudizhuPlayerList) {
 			list.add(player.getId());
 		}
 		return list;
 	}
 
 	public Position playerPosition(String playerId) {
-		for (DoudizhuPlayerValueObject player : shuangkouPlayerList) {
+		for (DoudizhuPlayerValueObject player : doudizhuPlayerList) {
 			if (player.getId().equals(playerId)) {
 				return player.getPosition();
 			}
@@ -53,7 +53,7 @@ public class PanValueObject {
 	}
 
 	public DoudizhuPlayerValueObject findPlayer(String playerId) {
-		for (DoudizhuPlayerValueObject player : shuangkouPlayerList) {
+		for (DoudizhuPlayerValueObject player : doudizhuPlayerList) {
 			if (player.getId().equals(playerId)) {
 				return player;
 			}
@@ -69,12 +69,12 @@ public class PanValueObject {
 		this.no = no;
 	}
 
-	public List<DoudizhuPlayerValueObject> getShuangkouPlayerList() {
-		return shuangkouPlayerList;
+	public List<DoudizhuPlayerValueObject> getDoudizhuPlayerList() {
+		return doudizhuPlayerList;
 	}
 
-	public void setShuangkouPlayerList(List<DoudizhuPlayerValueObject> shuangkouPlayerList) {
-		this.shuangkouPlayerList = shuangkouPlayerList;
+	public void setDoudizhuPlayerList(List<DoudizhuPlayerValueObject> doudizhuPlayerList) {
+		this.doudizhuPlayerList = doudizhuPlayerList;
 	}
 
 	public PaiListValueObject getPaiListValueObject() {
