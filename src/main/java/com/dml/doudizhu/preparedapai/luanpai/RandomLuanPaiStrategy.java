@@ -18,6 +18,14 @@ public class RandomLuanPaiStrategy implements LuanPaiStrategy {
 
 	private long seed;
 
+	public RandomLuanPaiStrategy() {
+
+	}
+
+	public RandomLuanPaiStrategy(long seed) {
+		this.seed = seed;
+	}
+
 	@Override
 	public void luanpai(Ju ju) throws Exception {
 		Pan currentPan = ju.getCurrentPan();

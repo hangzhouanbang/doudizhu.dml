@@ -22,6 +22,7 @@ import com.dml.doudizhu.player.action.da.ZaDanYaPaiSolutionCalculator;
 import com.dml.doudizhu.player.action.guo.GuoAction;
 import com.dml.doudizhu.player.action.guo.GuoActionStatisticsListener;
 import com.dml.doudizhu.preparedapai.avaliablepai.AvaliablePaiFiller;
+import com.dml.doudizhu.preparedapai.dipai.DipaiDeterminer;
 import com.dml.doudizhu.preparedapai.dizhu.DizhuDeterminer;
 import com.dml.doudizhu.preparedapai.fapai.FaPaiStrategy;
 import com.dml.doudizhu.preparedapai.lipai.ShoupaiSortStrategy;
@@ -41,6 +42,7 @@ public class Ju {
 	private LuanPaiStrategy luanPaiStrategy;
 	private FaPaiStrategy faPaiStrategy;
 	private DizhuDeterminer dizhuDeterminer;
+	private DipaiDeterminer dipaiDeterminer;
 	private MenfengDeterminer menfengDeterminerForFirstPan;
 	private MenfengDeterminer menfengDeterminerForNextPan;
 	private XiandaDeterminer xiandaDeterminer;
@@ -71,7 +73,7 @@ public class Ju {
 		currentPan = new Pan();
 		currentPan.setNo(1);
 		allPlayerIds.forEach((pid) -> currentPan.addPlayer(pid));
-
+		menfengDeterminerForFirstPan.determineMenfengForPlayer(this);
 		avaliablePaiFiller.fillAvaliablePai(this);
 
 		// 先乱牌，再发牌，再理牌
@@ -86,7 +88,7 @@ public class Ju {
 	public void startPlaying(long currentTime) throws Exception {
 		// 谁第一个打牌
 		String dapaiPlayerId = xiandaDeterminer.determineToXiandaplayer(this);
-		DoudizhuPlayer player = currentPan.findPlayer(dapaiPlayerId);
+		DoudizhuPlayer player = currentPan.findPlayerById(dapaiPlayerId);
 		player.putYaPaiSolutionCandidates(
 				allKedaPaiSolutionsGenerator.generateAllKedaPaiSolutions(player.getAllShoupai()));
 
@@ -105,7 +107,7 @@ public class Ju {
 		PanResult latestFinishedPanResult = findLatestFinishedPanResult();
 		List<String> allPlayerIds = latestFinishedPanResult.allPlayerIds();
 		allPlayerIds.forEach((pid) -> currentPan.addPlayer(pid));
-
+		menfengDeterminerForNextPan.determineMenfengForPlayer(this);
 		avaliablePaiFiller.fillAvaliablePai(this);
 
 		// 先乱牌，再发牌，再理牌
@@ -122,7 +124,7 @@ public class Ju {
 			throws Exception {
 		DaAction daAction = currentPan.da(playerId, paiIds, dianshuZuheIdx, waihaoGenerator);
 		// 每次要理牌
-		currentPan.findPlayer(playerId).lipai(shoupaiSortStrategy);
+		currentPan.findPlayerById(playerId).lipai(shoupaiSortStrategy);
 		actionStatisticsListenerManager.updateDaActionListener(daAction, this);
 
 		if (panFinishiDeterminer.determineToFinishCurrentPan(this)) {// 是否盘结束
@@ -361,6 +363,14 @@ public class Ju {
 
 	public void setShoupaiSortStrategy(ShoupaiSortStrategy shoupaiSortStrategy) {
 		this.shoupaiSortStrategy = shoupaiSortStrategy;
+	}
+
+	public DipaiDeterminer getDipaiDeterminer() {
+		return dipaiDeterminer;
+	}
+
+	public void setDipaiDeterminer(DipaiDeterminer dipaiDeterminer) {
+		this.dipaiDeterminer = dipaiDeterminer;
 	}
 
 }

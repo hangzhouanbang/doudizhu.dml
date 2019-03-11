@@ -188,8 +188,12 @@ public class Pan {
 		return yapaiPlayer;
 	}
 
-	public DoudizhuPlayer findPlayer(String dapaiPlayerId) {
-		return doudizhuPlayerIdMajiangPlayerMap.get(dapaiPlayerId);
+	public DoudizhuPlayer findPlayerById(String playerId) {
+		return doudizhuPlayerIdMajiangPlayerMap.get(playerId);
+	}
+
+	public DoudizhuPlayer findDizhu() {
+		return doudizhuPlayerIdMajiangPlayerMap.get(dizhuPlayerId);
 	}
 
 	public Position findPlayerPosition(String playerId) {
