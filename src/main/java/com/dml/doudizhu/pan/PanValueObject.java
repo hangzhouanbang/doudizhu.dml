@@ -16,6 +16,7 @@ public class PanValueObject {
 	private PaiListValueObject paiListValueObject;
 	private Map<Position, String> positionPlayerIdMap;
 	private List<DianShuZuPaiZu> dachuPaiZuList;
+	private String dizhuPlayerId;// 地主id
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
 
@@ -33,6 +34,7 @@ public class PanValueObject {
 		dachuPaiZuList = new ArrayList<>(pan.getDachuPaiZuList());
 		actionPosition = pan.getActionPosition();
 		latestDapaiPlayerId = pan.getLatestDapaiPlayerId();
+		dizhuPlayerId = pan.getDizhuPlayerId();
 	}
 
 	public List<String> allPlayerIds() {
@@ -115,6 +117,14 @@ public class PanValueObject {
 
 	public void setLatestDapaiPlayerId(String latestDapaiPlayerId) {
 		this.latestDapaiPlayerId = latestDapaiPlayerId;
+	}
+
+	public String getDizhuPlayerId() {
+		return dizhuPlayerId;
+	}
+
+	public void setDizhuPlayerId(String dizhuPlayerId) {
+		this.dizhuPlayerId = dizhuPlayerId;
 	}
 
 }
