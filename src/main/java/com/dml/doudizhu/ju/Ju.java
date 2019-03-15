@@ -86,6 +86,9 @@ public class Ju {
 	}
 
 	public void startPlaying(long currentTime) throws Exception {
+		// 重新理牌
+		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
+				.forEach((player) -> player.lipai(shoupaiSortStrategy));
 		// 谁第一个打牌
 		String dapaiPlayerId = xiandaDeterminer.determineToXiandaplayer(this);
 		DoudizhuPlayer player = currentPan.findPlayerById(dapaiPlayerId);
