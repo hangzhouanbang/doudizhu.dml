@@ -180,7 +180,7 @@ public class Pan {
 	public DoudizhuPlayer findNextActionPlayer() throws PlayerNotFoundException {
 		Position nextPosition = PositionUtil.nextPositionClockwise(actionPosition);
 		String yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
-		while (yapaiPlayerId == null || !yapaiPlayerId.equals(latestDapaiPlayerId)) {
+		while (yapaiPlayerId == null) {
 			nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
 			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
 		}
@@ -213,7 +213,7 @@ public class Pan {
 	public boolean ifStartYapai() throws PlayerNotFoundException {
 		Position nextPosition = PositionUtil.nextPositionClockwise(actionPosition);
 		String yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
-		while (yapaiPlayerId == null || !yapaiPlayerId.equals(latestDapaiPlayerId)) {
+		while (yapaiPlayerId == null) {
 			nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
 			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
 		}

@@ -60,6 +60,9 @@ public class SanzhangDipaiDeterminer implements DipaiDeterminer {
 
 	public boolean dipaiIsTonghua() {
 		HuaSe huaSe = dipaiList.get(0).getPaiMian().huaSe();
+		if (huaSe == null) {
+			return false;
+		}
 		for (PukePai pukePai : dipaiList) {
 			if (!pukePai.getPaiMian().huaSe().equals(huaSe)) {
 				return false;
