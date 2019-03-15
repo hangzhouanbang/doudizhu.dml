@@ -65,7 +65,7 @@ public class SanzhangDipaiDeterminer implements DipaiDeterminer {
 			return false;
 		}
 		for (PukePai pukePai : dipaiList) {
-			if (pukePai.getPaiMian().huaSe() != null && !pukePai.getPaiMian().huaSe().equals(huaSe)) {
+			if (pukePai.getPaiMian().huaSe() == null || !pukePai.getPaiMian().huaSe().equals(huaSe)) {
 				return false;
 			}
 		}
