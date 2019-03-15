@@ -59,12 +59,13 @@ public class SanzhangDipaiDeterminer implements DipaiDeterminer {
 	}
 
 	public boolean dipaiIsTonghua() {
+		// 大、小王无花色
 		HuaSe huaSe = dipaiList.get(0).getPaiMian().huaSe();
 		if (huaSe == null) {
 			return false;
 		}
 		for (PukePai pukePai : dipaiList) {
-			if (!pukePai.getPaiMian().huaSe().equals(huaSe)) {
+			if (pukePai.getPaiMian().huaSe() != null && !pukePai.getPaiMian().huaSe().equals(huaSe)) {
 				return false;
 			}
 		}
