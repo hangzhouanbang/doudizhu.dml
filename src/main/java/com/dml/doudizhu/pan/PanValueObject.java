@@ -17,6 +17,7 @@ public class PanValueObject {
 	private Map<Position, String> positionPlayerIdMap;
 	private List<DianShuZuPaiZu> dachuPaiZuList;
 	private String dizhuPlayerId;// 地主id
+	private String yingjiaPlayerId;// 赢家id
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
 
@@ -35,6 +36,7 @@ public class PanValueObject {
 		actionPosition = pan.getActionPosition();
 		latestDapaiPlayerId = pan.getLatestDapaiPlayerId();
 		dizhuPlayerId = pan.getDizhuPlayerId();
+		yingjiaPlayerId = pan.getYingjiaPlayerId();
 	}
 
 	public List<String> allPlayerIds() {
@@ -125,6 +127,14 @@ public class PanValueObject {
 
 	public void setDizhuPlayerId(String dizhuPlayerId) {
 		this.dizhuPlayerId = dizhuPlayerId;
+	}
+
+	public String getYingjiaPlayerId() {
+		return yingjiaPlayerId;
+	}
+
+	public void setYingjiaPlayerId(String yingjiaPlayerId) {
+		this.yingjiaPlayerId = yingjiaPlayerId;
 	}
 
 }

@@ -2,7 +2,7 @@ package com.dml.doudizhu.player.action;
 
 public abstract class DoudizhuPlayerAction {
 
-	private DoudizhuPlayerActionType actionType;
+	private DoudizhuPlayerActionType type;
 
 	private String actionPlayerId;
 
@@ -11,16 +11,16 @@ public abstract class DoudizhuPlayerAction {
 	}
 
 	public DoudizhuPlayerAction(DoudizhuPlayerActionType da, String actionPlayerId) {
-		actionType = da;
+		type = da;
 		this.actionPlayerId = actionPlayerId;
 	}
 
-	public DoudizhuPlayerActionType getActionType() {
-		return actionType;
+	public DoudizhuPlayerActionType getType() {
+		return type;
 	}
 
-	public void setActionType(DoudizhuPlayerActionType actionType) {
-		this.actionType = actionType;
+	public void setType(DoudizhuPlayerActionType type) {
+		this.type = type;
 	}
 
 	public String getActionPlayerId() {

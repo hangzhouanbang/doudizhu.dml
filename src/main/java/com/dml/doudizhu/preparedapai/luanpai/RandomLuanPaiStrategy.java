@@ -30,7 +30,7 @@ public class RandomLuanPaiStrategy implements LuanPaiStrategy {
 	public void luanpai(Ju ju) throws Exception {
 		Pan currentPan = ju.getCurrentPan();
 		List<PukePai> allPaiList = currentPan.getAvaliablePaiList();
-		Random rnm = new Random(seed);
+		Random rnm = new Random(seed + currentPan.getNo());
 		Collections.shuffle(allPaiList, rnm);
 	}
 

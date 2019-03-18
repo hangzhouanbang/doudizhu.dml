@@ -31,6 +31,7 @@ public class Pan {
 	private Position actionPosition;
 	private String latestDapaiPlayerId;
 	private String dizhuPlayerId;// 地主id
+	private String yingjiaPlayerId;// 赢家id
 	private List<PanActionFrame> actionFrameList = new ArrayList<>();
 
 	public PanActionFrame recordPanActionFrame(DoudizhuPlayerAction action, long actionTime) {
@@ -291,6 +292,14 @@ public class Pan {
 
 	public void setActionFrameList(List<PanActionFrame> actionFrameList) {
 		this.actionFrameList = actionFrameList;
+	}
+
+	public String getYingjiaPlayerId() {
+		return yingjiaPlayerId;
+	}
+
+	public void setYingjiaPlayerId(String yingjiaPlayerId) {
+		this.yingjiaPlayerId = yingjiaPlayerId;
 	}
 
 }
