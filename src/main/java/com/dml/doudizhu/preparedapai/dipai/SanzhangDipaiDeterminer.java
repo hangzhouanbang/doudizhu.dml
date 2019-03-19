@@ -100,6 +100,7 @@ public class SanzhangDipaiDeterminer implements DipaiDeterminer {
 
 	@Override
 	public void fadipai(Ju ju) throws Exception {
+		dipaiList.clear();
 		Pan currentPan = ju.getCurrentPan();
 		List<PukePai> avaliablePaiList = currentPan.getAvaliablePaiList();
 		DoudizhuPlayer player = currentPan.findDizhu();
