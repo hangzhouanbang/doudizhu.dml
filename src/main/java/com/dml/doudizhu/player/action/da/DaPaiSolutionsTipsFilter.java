@@ -14,6 +14,6 @@ import com.dml.puke.pai.PukePai;
  */
 public interface DaPaiSolutionsTipsFilter {
 
-	public List<DaPaiDianShuSolution> filter(List<DaPaiDianShuSolution> YaPaiSolutions,
+	public List<DaPaiDianShuSolution> filter(List<DaPaiDianShuSolution> DaPaiSolutions,
 			Map<Integer, PukePai> allShoupai);
 }
