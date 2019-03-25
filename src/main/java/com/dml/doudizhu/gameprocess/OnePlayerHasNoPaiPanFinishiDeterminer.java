@@ -15,7 +15,7 @@ public class OnePlayerHasNoPaiPanFinishiDeterminer implements CurrentPanFinishiD
 	@Override
 	public boolean determineToFinishCurrentPan(Ju ju) {
 		Pan currentPan = ju.getCurrentPan();
-		for (DoudizhuPlayer player : currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()) {
+		for (DoudizhuPlayer player : currentPan.getDoudizhuPlayerIdPlayerMap().values()) {
 			if (player.getAllShoupai().size() == 0) {
 				return true;
 			}

@@ -79,16 +79,14 @@ public class Ju {
 		// 先乱牌，再发牌，再理牌
 		luanPaiStrategy.luanpai(this);
 		faPaiStrategy.fapai(this);
-		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
-				.forEach((player) -> player.lipai(shoupaiSortStrategy));
+		currentPan.getDoudizhuPlayerIdPlayerMap().values().forEach((player) -> player.lipai(shoupaiSortStrategy));
 
 		currentPan.recordPanActionFrame(null, startTime);
 	}
 
 	public void startPlaying(long currentTime) throws Exception {
 		// 重新理牌
-		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
-				.forEach((player) -> player.lipai(shoupaiSortStrategy));
+		currentPan.getDoudizhuPlayerIdPlayerMap().values().forEach((player) -> player.lipai(shoupaiSortStrategy));
 		// 谁第一个打牌
 		String dapaiPlayerId = xiandaDeterminer.determineToXiandaplayer(this);
 		DoudizhuPlayer player = currentPan.findPlayerById(dapaiPlayerId);
@@ -116,8 +114,7 @@ public class Ju {
 		// 先乱牌，再发牌，再理牌
 		luanPaiStrategy.luanpai(this);
 		faPaiStrategy.fapai(this);
-		currentPan.getDoudizhuPlayerIdMajiangPlayerMap().values()
-				.forEach((player) -> player.lipai(shoupaiSortStrategy));
+		currentPan.getDoudizhuPlayerIdPlayerMap().values().forEach((player) -> player.lipai(shoupaiSortStrategy));
 
 		currentPan.recordPanActionFrame(null, System.currentTimeMillis());
 

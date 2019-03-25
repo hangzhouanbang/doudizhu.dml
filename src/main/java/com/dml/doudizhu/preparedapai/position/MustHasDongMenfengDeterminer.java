@@ -27,13 +27,13 @@ public class MustHasDongMenfengDeterminer implements MenfengDeterminer {
 		positions.add(Position.nan);
 		positions.add(Position.xi);
 		positions.add(Position.bei);
-		if (currentPan.getDoudizhuPlayerIdMajiangPlayerMap().size() == 2) {
-			for (String playerId : currentPan.getDoudizhuPlayerIdMajiangPlayerMap().keySet()) {
+		if (currentPan.getDoudizhuPlayerIdPlayerMap().size() == 2) {
+			for (String playerId : currentPan.getDoudizhuPlayerIdPlayerMap().keySet()) {
 				currentPan.updatePlayerPosition(playerId, positions.remove(0));
 				positions.remove(0);
 			}
-		} else if (currentPan.getDoudizhuPlayerIdMajiangPlayerMap().size() == 3) {
-			for (String playerId : currentPan.getDoudizhuPlayerIdMajiangPlayerMap().keySet()) {
+		} else if (currentPan.getDoudizhuPlayerIdPlayerMap().size() == 3) {
+			for (String playerId : currentPan.getDoudizhuPlayerIdPlayerMap().keySet()) {
 				currentPan.updatePlayerPosition(playerId, positions.remove(0));
 			}
 		}

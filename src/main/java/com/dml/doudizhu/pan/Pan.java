@@ -24,7 +24,7 @@ import com.dml.puke.wanfa.position.PositionUtil;
 
 public class Pan {
 	private int no;
-	private Map<String, DoudizhuPlayer> doudizhuPlayerIdMajiangPlayerMap = new HashMap<>();
+	private Map<String, DoudizhuPlayer> doudizhuPlayerIdPlayerMap = new HashMap<>();
 	private Map<Position, String> positionPlayerIdMap = new HashMap<>();
 	private List<PukePai> avaliablePaiList = new ArrayList<>();
 	private List<DianShuZuPaiZu> dachuPaiZuList = new ArrayList<>();
@@ -56,17 +56,17 @@ public class Pan {
 	public void addPlayer(String playerId) {
 		DoudizhuPlayer doudizhuPlayer = new DoudizhuPlayer();
 		doudizhuPlayer.setId(playerId);
-		doudizhuPlayerIdMajiangPlayerMap.put(playerId, doudizhuPlayer);
+		doudizhuPlayerIdPlayerMap.put(playerId, doudizhuPlayer);
 	}
 
 	public List<String> sortedPlayerIdList() {
-		List<String> list = new ArrayList<>(doudizhuPlayerIdMajiangPlayerMap.keySet());
+		List<String> list = new ArrayList<>(doudizhuPlayerIdPlayerMap.keySet());
 		Collections.sort(list);
 		return list;
 	}
 
 	public void updateActionPositionByActionPlayer(String playerId) throws Exception {
-		DoudizhuPlayer player = doudizhuPlayerIdMajiangPlayerMap.get(playerId);
+		DoudizhuPlayer player = doudizhuPlayerIdPlayerMap.get(playerId);
 		if (player == null) {
 			throw new PlayerNotFoundException();
 		}
@@ -74,7 +74,7 @@ public class Pan {
 	}
 
 	public void updatePlayerPosition(String playerId, Position position) throws PlayerNotFoundException {
-		DoudizhuPlayer player = doudizhuPlayerIdMajiangPlayerMap.get(playerId);
+		DoudizhuPlayer player = doudizhuPlayerIdPlayerMap.get(playerId);
 		if (player == null) {
 			throw new PlayerNotFoundException();
 		}
@@ -88,7 +88,7 @@ public class Pan {
 
 	public DaAction da(String playerId, List<Integer> paiIds, String dianshuZuheIdx, WaihaoGenerator waihaoGenerator)
 			throws Exception {
-		DoudizhuPlayer daPlayer = doudizhuPlayerIdMajiangPlayerMap.get(playerId);
+		DoudizhuPlayer daPlayer = doudizhuPlayerIdPlayerMap.get(playerId);
 		if (daPlayer == null) {
 			throw new PlayerNotFoundException();
 		}
@@ -97,7 +97,7 @@ public class Pan {
 		}
 		// 如果是大的人打牌，那先要清桌
 		if (latestDapaiPlayerId == null || ifStartYapai()) {
-			doudizhuPlayerIdMajiangPlayerMap.values().forEach((player) -> {
+			doudizhuPlayerIdPlayerMap.values().forEach((player) -> {
 				player.putPublicDachuPaiZuToLishi();
 			});
 		}
@@ -111,7 +111,7 @@ public class Pan {
 	}
 
 	public GuoAction guo(String playerId) throws Exception {
-		DoudizhuPlayer player = doudizhuPlayerIdMajiangPlayerMap.get(playerId);
+		DoudizhuPlayer player = doudizhuPlayerIdPlayerMap.get(playerId);
 		if (player == null) {
 			throw new PlayerNotFoundException();
 		}
@@ -130,7 +130,7 @@ public class Pan {
 			ZaDanYaPaiSolutionCalculator zaDanYaPaiCalculator) {
 		String dachuPlayerId = latestDapaiPlayerId;
 		if (dachuPlayerId != null) {
-			DoudizhuPlayer dachuPlayer = doudizhuPlayerIdMajiangPlayerMap.get(dachuPlayerId);
+			DoudizhuPlayer dachuPlayer = doudizhuPlayerIdPlayerMap.get(dachuPlayerId);
 			if (dachuPlayer != null) {
 				DianShuZuPaiZu dachuPaiZu = dachuPlayer.getPublicDachuPaiZu();
 				if (dachuPaiZu != null) {
@@ -185,20 +185,20 @@ public class Pan {
 			nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
 			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
 		}
-		DoudizhuPlayer yapaiPlayer = doudizhuPlayerIdMajiangPlayerMap.get(yapaiPlayerId);
+		DoudizhuPlayer yapaiPlayer = doudizhuPlayerIdPlayerMap.get(yapaiPlayerId);
 		return yapaiPlayer;
 	}
 
 	public DoudizhuPlayer findPlayerById(String playerId) {
-		return doudizhuPlayerIdMajiangPlayerMap.get(playerId);
+		return doudizhuPlayerIdPlayerMap.get(playerId);
 	}
 
 	public DoudizhuPlayer findDizhu() {
-		return doudizhuPlayerIdMajiangPlayerMap.get(dizhuPlayerId);
+		return doudizhuPlayerIdPlayerMap.get(dizhuPlayerId);
 	}
 
 	public Position findPlayerPosition(String playerId) {
-		for (DoudizhuPlayer player : doudizhuPlayerIdMajiangPlayerMap.values()) {
+		for (DoudizhuPlayer player : doudizhuPlayerIdPlayerMap.values()) {
 			if (player.getId().equals(playerId)) {
 				return player.getPosition();
 			}
@@ -218,7 +218,7 @@ public class Pan {
 			nextPosition = PositionUtil.nextPositionClockwise(nextPosition);
 			yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
 		}
-		DoudizhuPlayer yapaiPlayer = doudizhuPlayerIdMajiangPlayerMap.get(yapaiPlayerId);
+		DoudizhuPlayer yapaiPlayer = doudizhuPlayerIdPlayerMap.get(yapaiPlayerId);
 		return yapaiPlayer.getId().equals(latestDapaiPlayerId);
 	}
 
@@ -230,12 +230,12 @@ public class Pan {
 		this.no = no;
 	}
 
-	public Map<String, DoudizhuPlayer> getDoudizhuPlayerIdMajiangPlayerMap() {
-		return doudizhuPlayerIdMajiangPlayerMap;
+	public Map<String, DoudizhuPlayer> getDoudizhuPlayerIdPlayerMap() {
+		return doudizhuPlayerIdPlayerMap;
 	}
 
-	public void setDoudizhuPlayerIdMajiangPlayerMap(Map<String, DoudizhuPlayer> doudizhuPlayerIdMajiangPlayerMap) {
-		this.doudizhuPlayerIdMajiangPlayerMap = doudizhuPlayerIdMajiangPlayerMap;
+	public void setDoudizhuPlayerIdPlayerMap(Map<String, DoudizhuPlayer> doudizhuPlayerIdPlayerMap) {
+		this.doudizhuPlayerIdPlayerMap = doudizhuPlayerIdPlayerMap;
 	}
 
 	public Map<Position, String> getPositionPlayerIdMap() {
