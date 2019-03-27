@@ -39,7 +39,8 @@ public class Ju {
 	private CurrentPanFinishiDeterminer panFinishiDeterminer;
 	private JuFinishiDeterminer juFinishiDeterminer;
 	private AvaliablePaiFiller avaliablePaiFiller;
-	private LuanPaiStrategy luanPaiStrategy;
+	private LuanPaiStrategy luanPaiStrategyForFirstPan;
+	private LuanPaiStrategy luanPaiStrategyForNextPan;
 	private FaPaiStrategy faPaiStrategy;
 	private DizhuDeterminer dizhuDeterminer;
 	private DipaiDeterminer dipaiDeterminer;
@@ -77,7 +78,7 @@ public class Ju {
 		avaliablePaiFiller.fillAvaliablePai(this);
 
 		// 先乱牌，再发牌，再理牌
-		luanPaiStrategy.luanpai(this);
+		luanPaiStrategyForFirstPan.luanpai(this);
 		faPaiStrategy.fapai(this);
 		currentPan.getDoudizhuPlayerIdPlayerMap().values().forEach((player) -> player.lipai(shoupaiSortStrategy));
 
@@ -112,7 +113,7 @@ public class Ju {
 		avaliablePaiFiller.fillAvaliablePai(this);
 
 		// 先乱牌，再发牌，再理牌
-		luanPaiStrategy.luanpai(this);
+		luanPaiStrategyForNextPan.luanpai(this);
 		faPaiStrategy.fapai(this);
 		currentPan.getDoudizhuPlayerIdPlayerMap().values().forEach((player) -> player.lipai(shoupaiSortStrategy));
 
@@ -237,12 +238,20 @@ public class Ju {
 		this.avaliablePaiFiller = avaliablePaiFiller;
 	}
 
-	public LuanPaiStrategy getLuanPaiStrategy() {
-		return luanPaiStrategy;
+	public LuanPaiStrategy getLuanPaiStrategyForFirstPan() {
+		return luanPaiStrategyForFirstPan;
 	}
 
-	public void setLuanPaiStrategy(LuanPaiStrategy luanPaiStrategy) {
-		this.luanPaiStrategy = luanPaiStrategy;
+	public void setLuanPaiStrategyForFirstPan(LuanPaiStrategy luanPaiStrategyForFirstPan) {
+		this.luanPaiStrategyForFirstPan = luanPaiStrategyForFirstPan;
+	}
+
+	public LuanPaiStrategy getLuanPaiStrategyForNextPan() {
+		return luanPaiStrategyForNextPan;
+	}
+
+	public void setLuanPaiStrategyForNextPan(LuanPaiStrategy luanPaiStrategyForNextPan) {
+		this.luanPaiStrategyForNextPan = luanPaiStrategyForNextPan;
 	}
 
 	public FaPaiStrategy getFaPaiStrategy() {
