@@ -135,11 +135,7 @@ public class Pan {
 				DianShuZuPaiZu dachuPaiZu = dachuPlayer.getPublicDachuPaiZu();
 				if (dachuPaiZu != null) {
 					DoudizhuPlayer yapaiPlayer = null;
-					try {
-						yapaiPlayer = findNextActionPlayer();
-					} catch (PlayerNotFoundException e) {
-
-					}
+					yapaiPlayer = findNextActionPlayer();
 					if (yapaiPlayer != null) {
 						yapaiPlayer.addDaPaiDianShuSolutions(dianShuZuYaPaiCalculator
 								.calculate(dachuPaiZu.getDianShuZu(), yapaiPlayer.getShoupaiDianShuAmountArray()));
@@ -154,11 +150,7 @@ public class Pan {
 
 	public void generateYaPaiSolutionsForTips(YaPaiSolutionsTipsFilter yaPaiSolutionsTipsFilter) {
 		DoudizhuPlayer yapaiPlayer = null;
-		try {
-			yapaiPlayer = findNextActionPlayer();
-		} catch (PlayerNotFoundException e) {
-
-		}
+		yapaiPlayer = findNextActionPlayer();
 		if (yapaiPlayer != null) {
 			yapaiPlayer.generateYaPaiSolutionsForTips(yaPaiSolutionsTipsFilter);
 		}
@@ -175,10 +167,8 @@ public class Pan {
 
 	/**
 	 * 查找下一个打牌的玩家
-	 * 
-	 * @throws PlayerNotFoundException
 	 */
-	public DoudizhuPlayer findNextActionPlayer() throws PlayerNotFoundException {
+	public DoudizhuPlayer findNextActionPlayer() {
 		Position nextPosition = PositionUtil.nextPositionClockwise(actionPosition);
 		String yapaiPlayerId = positionPlayerIdMap.get(nextPosition);
 		while (yapaiPlayerId == null) {

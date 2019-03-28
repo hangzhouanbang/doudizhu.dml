@@ -1,6 +1,7 @@
 package com.dml.doudizhu.preparedapai.position;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.dml.doudizhu.ju.Ju;
@@ -27,13 +28,15 @@ public class MustHasDongMenfengDeterminer implements MenfengDeterminer {
 		positions.add(Position.nan);
 		positions.add(Position.xi);
 		positions.add(Position.bei);
+		List<String> playerIdList = new ArrayList<>(currentPan.getDoudizhuPlayerIdPlayerMap().keySet());
+		Collections.shuffle(playerIdList);
 		if (currentPan.getDoudizhuPlayerIdPlayerMap().size() == 2) {
-			for (String playerId : currentPan.getDoudizhuPlayerIdPlayerMap().keySet()) {
+			for (String playerId : playerIdList) {
 				currentPan.updatePlayerPosition(playerId, positions.remove(0));
 				positions.remove(0);
 			}
 		} else if (currentPan.getDoudizhuPlayerIdPlayerMap().size() == 3) {
-			for (String playerId : currentPan.getDoudizhuPlayerIdPlayerMap().keySet()) {
+			for (String playerId : playerIdList) {
 				currentPan.updatePlayerPosition(playerId, positions.remove(0));
 			}
 		}
