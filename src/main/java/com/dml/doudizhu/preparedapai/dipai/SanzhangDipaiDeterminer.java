@@ -74,8 +74,8 @@ public class SanzhangDipaiDeterminer implements DipaiDeterminer {
 
 	public boolean dipaiIsShunzi() {
 		int one = dipaiList.get(0).getPaiMian().dianShu().ordinal();
-		int two = dipaiList.get(0).getPaiMian().dianShu().ordinal();
-		int three = dipaiList.get(0).getPaiMian().dianShu().ordinal();
+		int two = dipaiList.get(1).getPaiMian().dianShu().ordinal();
+		int three = dipaiList.get(2).getPaiMian().dianShu().ordinal();
 		return Math.abs((one - two) * (two - three) * 2 + 1) == 3;
 	}
 
